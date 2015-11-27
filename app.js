@@ -1,11 +1,14 @@
 var express = require('express');
 var app = express();
 var exphbs  = require('express-handlebars');
+var bodyParser = require('body-parser');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use('/static', express.static('public'));
+
+app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
   res.render('home');
@@ -17,7 +20,7 @@ app.get('/api/led', function (req, res) {
 });
 
 app.post('/api/led', function (req, res) {
-  console.log("led POST");
+  console.log("led POST: " + req.body.color);
 });
 
 app.get('/api/temperature', function (req, res) {
