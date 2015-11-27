@@ -13,6 +13,7 @@ var getLed = function(){
   $.ajax({
     url: "/api/led",
     success: function(data) {
+      data = data.replace('#', '');
       var result = JSON.parse(data);
       $('div.ledcolor').html('#' + result.color);
     }
@@ -37,7 +38,7 @@ var setBeep = function(frequency){
   });
 };
 
-getLed();
+//getLed();
 setInterval(getTemperature, 1000);
 
 $('#ledbutton').click(function(){
@@ -48,4 +49,9 @@ $('#ledbutton').click(function(){
 $('#beepbutton').click(function(){
   var frequency = $('input[name=frequency]').val();
   setBeep(frequency);
+});
+
+$('.changecolor').click(function(){
+  var color = $(this).data('color');
+  setLed(color);
 });
