@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 
 app.get('/api/led', function (req, res) {
   console.log("led GET");
-  res.write('{"color": "00FF00"}');
+  res.send('{"color": "00FF00"}');
 });
 
 app.post('/api/led', function (req, res) {
@@ -21,7 +21,8 @@ app.post('/api/led', function (req, res) {
 });
 
 app.get('/api/temperature', function (req, res) {
-  res.render('{"temperature": "20.3"}');
+  console.log("temperature GET")
+  res.send('{"temperature": "20.3"}');
 });
 
 var server = app.listen(3000, function () {
