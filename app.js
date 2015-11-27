@@ -2,6 +2,11 @@ var express = require('express');
 var app = express();
 var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
+var coap = require('coap');
+
+var options = {
+  hostname: '10.182.33.106'
+}
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -15,21 +20,38 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/led', function (req, res) {
-  console.log("led GET");
-  res.send('{"color": "00FF00"}');
+  options.method = 'GET';
+  options.pathname = '/led';
+  var request = coap.request(options)
+  request.on('response', function(response) {
+    res.send(response.payload.toString());
+  })
+  request.end()
 });
 
 app.post('/api/led', function (req, res) {
-  console.log("led POST: " + req.body.color);
+  options.method = 'POST';
+  options.pathname = '/led';
+  var request = coap.request(options)
+  request.end(req.body.color)
 });
 
 app.get('/api/temperature', function (req, res) {
-  console.log("temperature GET")
-  res.send('{"temperature": "20.3"}');
+  options.method = 'GET';
+  options.pathname = '/temperature';
+  var request = coap.request(options)
+  request.on('response', function(response) {
+    var data = {temperature: response.payload.toString()}
+    res.send(JSON.stringify(data));
+  })
+  request.end()
 });
 
 app.post('/api/beep', function (req, res) {
-  console.log("beep POST: " + req.body.frequency);
+  options.method = 'POST';
+  options.pathname = '/beep';
+  var request = coap.request(options)
+  request.end(req.body.frequency)
 });
 
 
