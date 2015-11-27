@@ -28,6 +28,11 @@ app.get('/api/temperature', function (req, res) {
   res.send('{"temperature": "20.3"}');
 });
 
+app.post('/api/beep', function (req, res) {
+  console.log("beep POST: " + req.body.frequency);
+});
+
+
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;

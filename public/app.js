@@ -28,9 +28,24 @@ var setLed = function(color){
   });
 };
 
+var setBeep = function(frequency){
+  $.ajax({
+    url: "/api/beep",
+    method: "post",
+    contentType: 'application/json',
+    data: '{"frequency": "' + frequency + '"}'
+  });
+};
+
 getLed();
 setInterval(getTemperature, 1000);
+
 $('#ledbutton').click(function(){
   var color = $('input[name=ledcolor]').val();
   setLed(color);
+});
+
+$('#beepbutton').click(function(){
+  var frequency = $('input[name=frequency]').val();
+  setBeep(frequency);
 });
