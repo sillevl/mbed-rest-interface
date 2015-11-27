@@ -1,0 +1,20 @@
+{
+  "name": "mbed-webinterface",
+  "version": "1.0.0",
+  "description": "Web interface controlling mbed using CoAP protocol",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mbed",
+    "coap",
+    "rest"
+  ],
+  "author": "Sille Van Landschoot",
+  "license": "MIT",
+  "dependencies": {
+    "coap": "^0.12.1",
+    "express": "^4.13.3"
+  }
+}
